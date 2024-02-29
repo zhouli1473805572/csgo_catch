@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="85.0" prefWidth="610.0" xmlns="http://javafx.com/javafx/8.0.201" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zl.MainController">
+   <children>
+      <Button fx:id="searchBtn" layoutX="450.0" layoutY="29.0" mnemonicParsing="false" onMouseClicked="#searchClick" prefHeight="23.0" prefWidth="60.0" text="搜索" />
+      <Button fx:id="searchAllBtn" layoutX="520.0" layoutY="29.0" mnemonicParsing="false" onMouseClicked="#searchClick" prefHeight="23.0" prefWidth="60.0" text="统计" />
+      <TextField fx:id="searchText" layoutX="28.0" layoutY="29.0" prefHeight="23.0" prefWidth="407.0" promptText="输入饰品名称" />
+      <Label fx:id="proStatus" layoutX="16.0" layoutY="16.0" prefHeight="53.0" prefWidth="578.0" text="加载驱动中。。。。" visible="false">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Button fx:id="againBtn" layoutX="477.0" layoutY="29.0" mnemonicParsing="false" onMouseClicked="#againClick" text="返回" visible="false" />
+   </children>
+</Pane>

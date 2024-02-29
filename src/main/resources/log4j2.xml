@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Configuration后面的status，这个用于设置log4j2自身内部的信息输出，可以不设置，当设置成trace时，你会看到log4j2内部各种详细输出-->
+<!--monitorInterval：Log4j能够自动检测修改配置 文件和重新配置本身，设置间隔秒数-->
+<Configuration status="WARN" monitorInterval="60">
+    <!--日志级别以及优先级排序: OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL -->
+    <Properties>
+        <Property name="splitSize">100MB</Property>
+    </Properties>
+
+    <Appenders>
+        <!-- 输出控制台日志的配置 -->
+        <Console name="console" target="SYSTEM_OUT">
+            <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            <!-- 输出日志的格式 -->
+            <!-- 格式化输出：%date表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度 %msg：日志消息，%n是换行符-->
+            <!-- %logger{36} 表示 Logger 名字最长36个字符 -->
+            <PatternLayout pattern="[%-5p] [%d{yyyy-MM-dd HH:mm:ss}] [%F-%L] %m%n"/>
+        </Console>
+        <!-- debug 日志 -->
+        <!-- 打印出所有的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档 -->
+        <RollingFile name="debugLog" fileName="logs/debug.log"
+                     filePattern="logs/debug.log-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="[%-5p] [%d{yyyy-MM-dd HH:mm:ss}] [%F-%L] %m%n"/>
+            <Policies>
+                <!--按大小分-->
+                <SizeBasedTriggeringPolicy size="${splitSize}"/>
+            </Policies>
+            <Filters>
+                <!-- 只记录debug级别信息 -->
+                <ThresholdFilter level="info" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </RollingFile>
+
+        <!-- info 日志 -->
+        <RollingFile name="infoLog" fileName="logs/info.log"
+                     filePattern="logs/info.log-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="[%-5p] [%d{yyyy-MM-dd HH:mm:ss}] [%F-%L] %m%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="${splitSize}"/>
+            </Policies>
+            <Filters>
+                <ThresholdFilter level="warn" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </RollingFile>
+
+        <!-- warn 日志 -->
+        <RollingFile name="warnLog" fileName="logs/warn.log"
+                     filePattern="logs/warn.log-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="[%-5p] [%d{yyyy-MM-dd HH:mm:ss}] [%F-%L] %m%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="${splitSize}"/>
+            </Policies>
+            <Filters>
+                <ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </RollingFile>
+
+        <!-- error 日志 -->
+        <RollingFile name="errorLog" fileName="logs/error.log"
+                     filePattern="logs/error.log-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="[%-5p] [%d{yyyy-MM-dd HH:mm:ss}] [%F-%L] %m%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="${splitSize}"/>
+            </Policies>
+            <Filters>
+                <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </RollingFile>
+
+    </Appenders>
+
+    <Loggers>
+        <!-- root logger 配置,全局配置，默认所有的Logger都继承此配置 -->
+        <!-- AsyncRoot - 异步记录日志 - 需要LMAX Disruptor的支持 -->
+
+        <Root level="DEBUG">
+            <AppenderRef ref="debugLog"/>
+            <AppenderRef ref="infoLog"/>
+            <AppenderRef ref="warnLog"/>
+            <AppenderRef ref="errorLog"/>
+            <AppenderRef ref="console"/>
+        </Root>
+
+        <!--第三方的软件日志级别 -->
+        <logger name="org.springframework" level="info" additivity="true">
+        </logger>
+        <logger name="org.apache" level="debug" additivity="true">
+        </logger>
+        <logger name="io.netty" level="info" additivity="true">
+        </logger>
+    </Loggers>
+</Configuration>
