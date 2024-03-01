@@ -12,33 +12,34 @@ import java.util.*;
  **/
 public class DownLoadImages {
     public static void main(String[] args) throws IOException {
-        File parentFile = new File("/volume1/java/weme/txt/");
-
-        HashSet<String> hasDownload = new HashSet<>();
-        for (File file : parentFile.listFiles()) {
+        File imageParentFile = new File("/volume1/java/weme/image/");
+        Set<String> hasDownload = new HashSet<>();
+        for (File file : imageParentFile.listFiles()) {
+            System.out.println("asd" + file.getName());
             for (File listFile : file.listFiles()) {
                 hasDownload.add(listFile.getName());
             }
         }
 
+        File txtParentFile = new File("/volume1/java/weme/txt/");
 
-        System.out.println(parentFile.getName());
-        for (File file1 : parentFile.listFiles()) {
-            System.out.println(file1.getName());
+        System.out.println(txtParentFile.getName());
+        for (File txtFile : txtParentFile.listFiles()) {
+            System.out.println(txtFile.getName());
             Map<String, List<String>> temp = new LinkedHashMap();
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(file1));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(txtFile));
             String s1;
             while ((s1 = bufferedReader.readLine()) != null) {
                 Map<String, List<String>> map = JSON.parseObject(s1, LinkedHashMap.class);
                 temp.putAll(map);
             }
 
-            String fileName = file1.getName().replace(".txt", "");
+            String fileName = txtFile.getName().replace(".txt", "");
 
             for (Map.Entry<String, List<String>> entry : temp.entrySet()) {
                 String key = entry.getKey();
 
-                if (hasDownload.contains(key)){
+                if (hasDownload.contains(key)) {
                     continue;
                 }
                 String pathname = "/volume1/java/weme/image/" + fileName + "/" + key;
