@@ -1,6 +1,6 @@
 package com.zl.gd.image;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import com.zl.gd.model.DataModel;
 import com.zl.gd.model.ImageOrVideoModel;
 import com.zl.gd.model.ImageOrVideoResponse;

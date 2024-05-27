@@ -1,7 +1,7 @@
 package com.zl.ins_image;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.zl.utils.HttpUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -55,7 +55,7 @@ public class InsCatch {
                         .replace("?", "")
                         .replace(":", "")
                         .replace(".", "");
-                if (StringUtils.isBlank(title)){
+                if (StringUtils.isBlank(title)) {
                     return;
                 }
 

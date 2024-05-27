@@ -1,11 +1,10 @@
 package com.zl.gd.video;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import com.zl.gd.model.*;
 import com.zl.utils.HttpUtils;
 import com.zl.utils.ImageUtil;
 import com.zl.utils.IpUtils;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;

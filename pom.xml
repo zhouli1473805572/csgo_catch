@@ -12,6 +12,7 @@
         <log4j2.version>2.20.0</log4j2.version>
         <log4j.slf4j2.version>2.20.0</log4j.slf4j2.version>
         <log4j2-web.version>2.19.0</log4j2-web.version>
+        <selenium.version>4.17.0</selenium.version>
     </properties>
     <build>
         <plugins>
@@ -72,12 +73,7 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.0.0-beta-1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-devtools-v88</artifactId>
-            <version>4.0.0-beta-1</version>
+            <version>${selenium.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jsoup</groupId>
@@ -101,9 +97,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <artifactId>fastjson</artifactId>
-            <groupId>com.alibaba</groupId>
-            <version>1.2.79</version>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
+            <version>2.0.50</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
